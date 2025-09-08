@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_shopping_list/data/categories.dart';
 import 'package:flutter_shopping_list/models/category.dart';
 import 'package:flutter_shopping_list/models/grocery_item.dart';
@@ -28,10 +29,7 @@ class _NewItemState extends State<NewItem> {
       setState(() {
         _isSending = true;
       });
-      final url = Uri.https(
-        'flutter-shopping-list-9d801-default-rtdb.europe-west1.firebasedatabase.app',
-        'shopping-list.json',
-      );
+      final url = Uri.https(dotenv.env['API_URL']!, 'shopping-list.json');
 
       final response = await http.post(
         url,

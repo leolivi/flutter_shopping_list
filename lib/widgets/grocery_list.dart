@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_shopping_list/data/categories.dart';
 import 'package:flutter_shopping_list/models/grocery_item.dart';
 import 'package:flutter_shopping_list/widgets/new_item.dart';
@@ -25,10 +26,7 @@ class _GroceryListState extends State<GroceryList> {
   }
 
   void _loadItems() async {
-    final url = Uri.https(
-      'flutter-shopping-list-9d801-default-rtdb.europe-west1.firebasedatabase.app',
-      'shopping-list.json',
-    );
+    final url = Uri.https(dotenv.env['API_URL']!, 'shopping-list.json');
     try {
       final response = await http.get(url);
 
@@ -98,7 +96,7 @@ class _GroceryListState extends State<GroceryList> {
     });
 
     final url = Uri.https(
-      'flutter-shopping-list-9d801-default-rtdb.europe-west1.firebasedatabase.app',
+      dotenv.env['API_URL']!,
       'shopping-list/${item.id}.json',
     );
 
